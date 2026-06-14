@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Contact &amp; Hours — Parkway Auto Spa</title>
+<meta name="description" content="Visit Parkway Auto Spa in McKinney, TX. Call 972-569-8683. Open Mon-Sat 8:00am-6:30pm, Sun 9:00am-5:00pm.">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<div id="site-header"></div>
+
+<main>
+  <section class="section section--tint">
+    <div class="wrap center">
+      <p class="eyebrow">Visit us</p>
+      <h1>Come say hello.</h1>
+      <p class="lead">We're in McKinney, TX and happy to help with a wash, a detail, or a state inspection.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap split">
+
+      <div>
+        <h2>Get in touch</h2>
+        <div class="card stack">
+          <div>
+            <h3>Call</h3>
+            <p><a href="tel:+19725698683">972-569-8683</a></p>
+          </div>
+          <div>
+            <h3>Email</h3>
+            <p><a href="mailto:manager@parkwayautospa.com">manager@parkwayautospa.com</a></p>
+          </div>
+          <div>
+            <h3>Location</h3>
+            <p class="muted">McKinney, TX</p>
+          </div>
+          <div>
+            <h3>Hours</h3>
+            <p class="muted">Monday &ndash; Saturday: 8:00am &ndash; 6:30pm<br>Sunday: 9:00am &ndash; 5:00pm</p>
+          </div>
+        </div>
+
+        <div style="margin-top:1.3rem; border-radius:var(--radius); overflow:hidden; border:1px solid var(--line)">
+          <iframe title="Map of McKinney, TX" width="100%" height="260" style="border:0; display:block"
+            loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+            src="https://maps.google.com/maps?q=McKinney%2C%20TX&t=&z=12&ie=UTF8&iwloc=&output=embed"></iframe>
+        </div>
+        <p class="muted" style="font-size:.85rem">Map shows McKinney, TX. Swap in the exact street address when you go live.</p>
+      </div>
+
+      <div>
+        <h2>Send a message</h2>
+        <form id="contact-form" novalidate>
+          <div class="field"><label for="c-name">Name</label><input id="c-name" autocomplete="name" placeholder="Your name"></div>
+          <div class="field"><label for="c-email">Email</label><input id="c-email" type="email" autocomplete="email" placeholder="you@example.com"></div>
+          <div class="field"><label for="c-msg">Message</label><textarea id="c-msg" rows="5" placeholder="How can we help?"></textarea></div>
+          <p class="c-error" style="color:#c0392b;min-height:1.2em;font-size:.9rem;margin:.2rem 0 .6rem"></p>
+          <button type="submit" class="btn btn-primary btn-lg btn-block">Send message</button>
+          <div class="notice" style="margin-top:1rem">This contact form is part of the demo. Wire it to email or your CRM when you go live.</div>
+        </form>
+      </div>
+
+    </div>
+  </section>
+</main>
+
+<div id="site-footer"></div>
+<script src="js/main.js"></script>
+<script>
+  (function () {
+    var form = document.getElementById("contact-form");
+    var err = form.querySelector(".c-error");
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      err.textContent = "";
+      var name = document.getElementById("c-name").value.trim();
+      var email = document.getElementById("c-email").value.trim();
+      var msg = document.getElementById("c-msg").value.trim();
+      if (!name || !email || !msg) { err.textContent = "Please fill in your name, email, and message."; return; }
+      form.innerHTML = '<div class="notice" style="border-left-color:#1a9d4e">' +
+        '<strong>Thanks, ' + name.replace(/[<>&]/g, "") + '!</strong> Your message would be sent to the shop. ' +
+        '(Demo &mdash; nothing was actually sent.)</div>';
+    });
+  })();
+</script>
+</body>
+</html>
