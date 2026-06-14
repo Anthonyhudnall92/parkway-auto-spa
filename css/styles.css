@@ -246,6 +246,16 @@ p { margin: 0 0 1rem; }
   font-size: .85rem; color: #8aa6c4; display: flex; justify-content: space-between; flex-wrap: wrap; gap: .5rem; }
 @media (max-width: 740px) { .site-footer .cols { grid-template-columns: 1fr; } }
 
+/* ---- checkout modal ---- */
+.modal-overlay { position: fixed; inset: 0; background: rgba(8,24,43,.55); display: none;
+  align-items: flex-start; justify-content: center; padding: 5vh 16px; z-index: 100; overflow: auto; }
+.modal-overlay.open { display: flex; }
+.modal-panel { background: #fff; border-radius: var(--radius); max-width: 520px; width: 100%;
+  padding: 1.9rem; position: relative; box-shadow: var(--shadow-lg); }
+.modal-close { position: absolute; top: .7rem; right: 1rem; background: none; border: none;
+  font-size: 1.9rem; line-height: 1; cursor: pointer; color: var(--muted); }
+.modal-close:hover { color: var(--navy); }
+
 /* ---- misc ---- */
 .notice { background: var(--surface); border: 1px solid var(--line); border-left: 4px solid var(--cyan);
   border-radius: 0 var(--radius-sm) var(--radius-sm) 0; padding: 1rem 1.2rem; margin: 1rem 0; }

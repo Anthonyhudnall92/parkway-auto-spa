@@ -191,6 +191,31 @@
     });
   };
 
+  /* Reusable checkout modal so every page calls one function. */
+  PayKit.closeCheckout = function () {
+    var overlay = document.getElementById("pk-modal");
+    if (overlay) { overlay.classList.remove("open"); document.body.style.overflow = ""; }
+  };
+
+  PayKit.openCheckout = function (opts) {
+    if (typeof document === "undefined") return;
+    var overlay = document.getElementById("pk-modal");
+    if (!overlay) {
+      overlay = el("div", { id: "pk-modal", class: "modal-overlay" });
+      overlay.innerHTML =
+        '<div class="modal-panel" role="dialog" aria-modal="true" aria-label="Checkout">' +
+        '<button class="modal-close" aria-label="Close checkout">&times;</button>' +
+        '<div class="modal-body"></div></div>';
+      document.body.appendChild(overlay);
+      overlay.addEventListener("click", function (e) { if (e.target === overlay) PayKit.closeCheckout(); });
+      overlay.querySelector(".modal-close").addEventListener("click", PayKit.closeCheckout);
+      document.addEventListener("keydown", function (e) { if (e.key === "Escape") PayKit.closeCheckout(); });
+    }
+    PayKit.mountCheckout(overlay.querySelector(".modal-body"), opts);
+    overlay.classList.add("open");
+    document.body.style.overflow = "hidden";
+  };
+
   if (typeof module !== "undefined" && module.exports) {
     module.exports = PayKit;
   } else {

@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Membership — Parkway Auto Spa</title>
+<meta name="description" content="Join a Parkway Auto Spa monthly wash plan in McKinney, TX. Unlimited washes from $19.99/month, auto-billed, cancel anytime.">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<div id="site-header"></div>
+
+<main>
+  <section class="section section--tint">
+    <div class="wrap center">
+      <p class="eyebrow">Unlimited club</p>
+      <h1>Wash often? Pay less.</h1>
+      <p class="lead">One low monthly price, unlimited washes, and no contract. Sign up online in under a minute — billing renews automatically and you can cancel anytime.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="grid grid-3">
+
+        <div class="card">
+          <h3>Basic</h3>
+          <div class="price">$19.99<small>/month</small></div>
+          <p class="muted">Great for a quick, regular shine.</p>
+          <ul>
+            <li>Unlimited exterior washes</li>
+            <li>Spot-free rinse</li>
+            <li>Wheel cleaning</li>
+            <li>Cancel anytime</li>
+          </ul>
+          <div class="card-cta"><button class="btn btn-ghost btn-block join-btn" data-plan="Basic" data-amount="19.99">Join Basic</button></div>
+        </div>
+
+        <div class="card card--featured">
+          <span class="badge badge--cyan">Most popular</span>
+          <h3 class="mt-2">Premium</h3>
+          <div class="price">$29.99<small>/month</small></div>
+          <p class="muted">Our best all-around value.</p>
+          <ul>
+            <li>Unlimited full-service washes</li>
+            <li>Interior vacuum &amp; wipe-down</li>
+            <li>Tire shine &amp; spot-free rinse</li>
+            <li>Skip-the-line member lane</li>
+          </ul>
+          <div class="card-cta"><button class="btn btn-accent btn-block join-btn" data-plan="Premium" data-amount="29.99">Join Premium</button></div>
+        </div>
+
+        <div class="card">
+          <h3>Unlimited Plus</h3>
+          <div class="price">$49.99<small>/month</small></div>
+          <p class="muted">The full spa treatment, always.</p>
+          <ul>
+            <li>Everything in Premium</li>
+            <li>Monthly hand wax</li>
+            <li>Ceramic boost protection</li>
+            <li>Priority detailing discounts</li>
+          </ul>
+          <div class="card-cta"><button class="btn btn-ghost btn-block join-btn" data-plan="Unlimited Plus" data-amount="49.99">Join Unlimited Plus</button></div>
+        </div>
+
+      </div>
+
+      <div class="notice mt-3">
+        <strong>How billing works:</strong> your card is charged automatically each month until you cancel. Manage or cancel anytime — no long-term contract.
+      </div>
+    </div>
+  </section>
+</main>
+
+<div id="site-footer"></div>
+<script src="js/main.js"></script>
+<script src="js/checkout.js"></script>
+<script>
+  document.querySelectorAll(".join-btn").forEach(function (b) {
+    b.addEventListener("click", function () {
+      PayKit.openCheckout({
+        label: b.getAttribute("data-plan") + " membership",
+        amount: parseFloat(b.getAttribute("data-amount")),
+        mode: "subscription"
+      });
+    });
+  });
+</script>
+</body>
+</html>

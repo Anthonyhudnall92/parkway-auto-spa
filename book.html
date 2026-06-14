@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Book a Wash — Parkway Auto Spa</title>
+<meta name="description" content="Book a wash or detail at Parkway Auto Spa in McKinney, TX. Reserve your time and leave a quick deposit to lock it in.">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<div id="site-header"></div>
+
+<main>
+  <section class="section section--tint">
+    <div class="wrap center">
+      <p class="eyebrow">Book online</p>
+      <h1>Reserve your spot.</h1>
+      <p class="lead">Pick a service and time, then leave a small deposit to lock it in. Your deposit goes toward the final price.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap split">
+      <div>
+        <h2>Your appointment</h2>
+        <form id="book-form" novalidate>
+          <div class="field">
+            <label for="bk-service">Service</label>
+            <select id="bk-service">
+              <option value="">Choose a service&hellip;</option>
+              <option value="Exterior wash" data-deposit="10">Exterior wash — from $8</option>
+              <option value="Full-service wash" data-deposit="10">Full-service wash — from $26</option>
+              <option value="Detailing" data-deposit="25">Detailing — from $150</option>
+              <option value="Hand wash &amp; wax" data-deposit="15">Hand wash &amp; wax</option>
+              <option value="Ceramic clear coat" data-deposit="25">Ceramic clear coat</option>
+            </select>
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label for="bk-date">Date</label>
+              <input type="date" id="bk-date">
+            </div>
+            <div class="field">
+              <label for="bk-time">Time</label>
+              <select id="bk-time">
+                <option value="">Choose&hellip;</option>
+                <option>8:00 AM</option><option>9:00 AM</option><option>10:00 AM</option>
+                <option>11:00 AM</option><option>12:00 PM</option><option>1:00 PM</option>
+                <option>2:00 PM</option><option>3:00 PM</option><option>4:00 PM</option>
+                <option>5:00 PM</option>
+              </select>
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field"><label for="bk-name">Name</label><input id="bk-name" autocomplete="name" placeholder="Your name"></div>
+            <div class="field"><label for="bk-phone">Phone</label><input id="bk-phone" inputmode="tel" autocomplete="tel" placeholder="(972) 555-0100"></div>
+          </div>
+          <p class="bk-error" style="color:#c0392b;min-height:1.2em;font-size:.9rem;margin:.2rem 0 .6rem"></p>
+          <button type="submit" class="btn btn-primary btn-lg btn-block">Continue to deposit</button>
+        </form>
+      </div>
+
+      <div class="card">
+        <h3>Why a deposit?</h3>
+        <p class="muted">A small deposit holds your time slot and reduces no-shows. It's credited toward your final bill — so you're not paying anything extra.</p>
+        <ul>
+          <li>Lock in your preferred time</li>
+          <li>Deposit applied to your total</li>
+          <li>Reschedule by phone anytime</li>
+        </ul>
+        <div class="notice">Deposits run on the customer's phone — they don't depend on the shop's internet.</div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div id="site-footer"></div>
+<script src="js/main.js"></script>
+<script src="js/checkout.js"></script>
+<script>
+  (function () {
+    var form = document.getElementById("book-form");
+    var date = document.getElementById("bk-date");
+    var err = form.querySelector(".bk-error");
+    var today = new Date().toISOString().split("T")[0];
+    date.min = today; date.value = today;
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      err.textContent = "";
+      var svc = document.getElementById("bk-service");
+      var time = document.getElementById("bk-time").value;
+      var name = document.getElementById("bk-name").value.trim();
+      var phone = document.getElementById("bk-phone").value.trim();
+      if (!svc.value) { err.textContent = "Please choose a service."; return; }
+      if (!date.value) { err.textContent = "Please choose a date."; return; }
+      if (!time) { err.textContent = "Please choose a time."; return; }
+      if (!name) { err.textContent = "Please enter your name."; return; }
+      if (!phone) { err.textContent = "Please enter a phone number."; return; }
+      var deposit = parseFloat(svc.options[svc.selectedIndex].getAttribute("data-deposit")) || 10;
+      PayKit.openCheckout({
+        label: "Deposit — " + svc.value + ", " + date.value + " at " + time,
+        amount: deposit,
+        mode: "deposit"
+      });
+    });
+  })();
+</script>
+</body>
+</html>
