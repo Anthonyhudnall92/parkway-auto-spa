@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gift Cards — Parkway Auto Spa</title>
+<meta name="description" content="Buy a Parkway Auto Spa gift card or prepaid wash bundle in McKinney, TX. Delivered instantly by email.">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<div id="site-header"></div>
+
+<main>
+  <section class="section section--tint">
+    <div class="wrap center">
+      <p class="eyebrow">Gift cards</p>
+      <h1>Give the gift of a clean car.</h1>
+      <p class="lead">Perfect for birthdays, new drivers, and thank-yous. Choose an amount, pay online, and the gift card code is ready right away.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap split">
+
+      <div>
+        <h2>Choose an amount</h2>
+        <form id="gift-form" novalidate>
+          <div class="chips" id="gift-chips">
+            <button type="button" class="chip" data-amt="25">$25</button>
+            <button type="button" class="chip selected" data-amt="50">$50</button>
+            <button type="button" class="chip" data-amt="100">$100</button>
+          </div>
+          <div class="field">
+            <label for="gift-amount">Or enter a custom amount (USD)</label>
+            <input id="gift-amount" type="number" min="5" step="1" inputmode="decimal" placeholder="50">
+          </div>
+          <div class="field-row">
+            <div class="field"><label for="gift-to">Recipient name <span class="muted">(optional)</span></label><input id="gift-to" placeholder="Their name"></div>
+            <div class="field"><label for="gift-email">Recipient email <span class="muted">(optional)</span></label><input id="gift-email" type="email" placeholder="them@example.com"></div>
+          </div>
+          <p class="gift-error" style="color:#c0392b;min-height:1.2em;font-size:.9rem;margin:.2rem 0 .6rem"></p>
+          <button type="submit" class="btn btn-primary btn-lg btn-block">Buy gift card</button>
+        </form>
+      </div>
+
+      <div class="card">
+        <h3>Prepaid wash bundles</h3>
+        <p class="muted">Buy washes in advance and save — a great way to lock in value.</p>
+        <ul>
+          <li>5 exterior washes &mdash; $36 <span class="muted">(save $4)</span></li>
+          <li>5 full-service washes &mdash; $120 <span class="muted">(save $10)</span></li>
+          <li>Detail 3-pack &mdash; $420 <span class="muted">(save $30)</span></li>
+        </ul>
+        <div class="card-cta"><button class="btn btn-accent btn-block" id="bundle-btn" data-amt="120">Buy 5 full-service ($120)</button></div>
+        <div class="notice">Gift cards and bundles are paid online — money in the door before the first wash.</div>
+      </div>
+
+    </div>
+  </section>
+</main>
+
+<div id="site-footer"></div>
+<script src="js/main.js"></script>
+<script src="js/checkout.js"></script>
+<script>
+  (function () {
+    var chips = document.getElementById("gift-chips");
+    var amount = document.getElementById("gift-amount");
+    var form = document.getElementById("gift-form");
+    var err = form.querySelector(".gift-error");
+
+    function selectedChipAmt() {
+      var sel = chips.querySelector(".chip.selected");
+      return sel ? parseFloat(sel.getAttribute("data-amt")) : null;
+    }
+
+    chips.addEventListener("click", function (e) {
+      var b = e.target.closest(".chip");
+      if (!b) return;
+      chips.querySelectorAll(".chip").forEach(function (c) { c.classList.remove("selected"); });
+      b.classList.add("selected");
+      amount.value = "";
+    });
+    amount.addEventListener("input", function () {
+      chips.querySelectorAll(".chip").forEach(function (c) { c.classList.remove("selected"); });
+    });
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      err.textContent = "";
+      var val = amount.value ? parseFloat(amount.value) : selectedChipAmt();
+      if (!(val > 0)) { err.textContent = "Please choose or enter an amount."; return; }
+      var to = document.getElementById("gift-to").value.trim();
+      PayKit.openCheckout({
+        label: to ? "Gift card for " + to : "Gift card",
+        amount: val,
+        mode: "giftcard"
+      });
+    });
+
+    document.getElementById("bundle-btn").addEventListener("click", function () {
+      PayKit.openCheckout({ label: "5 full-service wash bundle", amount: 120, mode: "giftcard" });
+    });
+  })();
+</script>
+</body>
+</html>

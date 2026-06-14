@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pay Your Bill — Parkway Auto Spa</title>
+<meta name="description" content="Pay Parkway Auto Spa from your phone — enter an amount or scan the QR code. Works even when the shop's internet is down.">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<div id="site-header"></div>
+
+<main>
+  <section class="section section--tint">
+    <div class="wrap center">
+      <p class="eyebrow">Pay your bill</p>
+      <h1>Pay from your phone.</h1>
+      <p class="lead">Enter your amount and pay in seconds, or scan the code with your phone camera. Either way, the payment runs on the customer's phone — so you can still get paid even if the shop's Wi-Fi is down.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap split">
+
+      <div>
+        <h2>Enter an amount</h2>
+        <form id="pay-form" novalidate>
+          <p class="muted">Quick amounts:</p>
+          <div class="chips" id="chips">
+            <button type="button" class="chip" data-amt="8">$8 Exterior</button>
+            <button type="button" class="chip" data-amt="26">$26 Full service</button>
+            <button type="button" class="chip" data-amt="150">$150 Detail</button>
+          </div>
+          <div class="field">
+            <label for="pay-amount">Amount (USD)</label>
+            <input id="pay-amount" type="number" min="1" step="0.01" inputmode="decimal" placeholder="0.00">
+          </div>
+          <div class="field">
+            <label for="pay-note">Name or invoice # <span class="muted">(optional)</span></label>
+            <input id="pay-note" placeholder="e.g. John D. / #1042">
+          </div>
+          <p class="pay-error" style="color:#c0392b;min-height:1.2em;font-size:.9rem;margin:.2rem 0 .6rem"></p>
+          <button type="submit" class="btn btn-primary btn-lg btn-block">Pay now</button>
+        </form>
+      </div>
+
+      <div class="card qr-card">
+        <h2>Scan to pay</h2>
+        <p class="muted">Point your phone camera at the code — it opens this page so the customer can pay on their own device.</p>
+        <div class="qr-box"><div id="qr"></div></div>
+        <p class="muted" id="qr-url" style="font-size:.85rem; word-break:break-all"></p>
+        <div class="notice" style="text-align:left">
+          <strong>At the register:</strong> print this QR on a small sign or the receipt. If the shop internet drops, customers still pay over their own cellular data — no lost sale.
+        </div>
+      </div>
+
+    </div>
+  </section>
+</main>
+
+<div id="site-footer"></div>
+<script src="js/main.js"></script>
+<script src="js/qrcode-generator.js"></script>
+<script src="js/qr.js"></script>
+<script src="js/checkout.js"></script>
+<script>
+  (function () {
+    var amount = document.getElementById("pay-amount");
+    var chips = document.getElementById("chips");
+    var form = document.getElementById("pay-form");
+    var err = form.querySelector(".pay-error");
+
+    chips.addEventListener("click", function (e) {
+      var b = e.target.closest(".chip");
+      if (!b) return;
+      amount.value = b.getAttribute("data-amt");
+      chips.querySelectorAll(".chip").forEach(function (c) { c.classList.remove("selected"); });
+      b.classList.add("selected");
+    });
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      err.textContent = "";
+      var val = parseFloat(amount.value);
+      if (!(val > 0)) { err.textContent = "Please enter an amount greater than $0."; amount.focus(); return; }
+      var note = document.getElementById("pay-note").value.trim();
+      PayKit.openCheckout({
+        label: note ? "Payment — " + note : "Wash payment",
+        amount: val,
+        mode: "oneoff"
+      });
+    });
+
+    // Real, scannable QR pointing at this pay page.
+    var payUrl = location.origin && location.origin !== "null"
+      ? location.origin + location.pathname
+      : "https://parkwayautospa.com/pay.html";
+    renderQR(document.getElementById("qr"), payUrl);
+    document.getElementById("qr-url").textContent = payUrl;
+  })();
+</script>
+</body>
+</html>
