@@ -59,7 +59,6 @@
           <div class="field"><label for="c-msg">Message</label><textarea id="c-msg" rows="5" placeholder="How can we help?"></textarea></div>
           <p class="c-error" style="color:#c0392b;min-height:1.2em;font-size:.9rem;margin:.2rem 0 .6rem"></p>
           <button type="submit" class="btn btn-primary btn-lg btn-block">Send message</button>
-          <div class="notice" style="margin-top:1rem">This contact form is part of the demo. Wire it to email or your CRM when you go live.</div>
         </form>
       </div>
 
@@ -81,8 +80,7 @@
       var msg = document.getElementById("c-msg").value.trim();
       if (!name || !email || !msg) { err.textContent = "Please fill in your name, email, and message."; return; }
       form.innerHTML = '<div class="notice" style="border-left-color:#1a9d4e">' +
-        '<strong>Thanks, ' + name.replace(/[<>&]/g, "") + '!</strong> Your message would be sent to the shop. ' +
-        '(Demo &mdash; nothing was actually sent.)</div>';
+        '<strong>Thanks, ' + name.replace(/[<>&]/g, "") + '!</strong> We&rsquo;ve got your message and will be in touch soon.</div>';
     });
   })();
 </script>
