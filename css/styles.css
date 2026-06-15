@@ -92,7 +92,9 @@ p { margin: 0 0 1rem; }
 .site-header .wrap { display: flex; align-items: center; gap: 1.5rem; height: 72px; }
 .brand { display: flex; align-items: center; gap: .6rem; font-weight: 800; color: var(--navy); font-size: 1.12rem; letter-spacing: -.02em; }
 .brand:hover { text-decoration: none; }
-.brand .mark { width: 34px; height: 34px; flex: 0 0 auto; }
+.brand-logo { height: 48px; width: auto; display: block; }
+.site-footer .brand-logo { height: 52px; }
+@media (max-width: 880px) { .brand-logo { height: 40px; } }
 .nav { display: flex; align-items: center; gap: .35rem; margin-left: auto; }
 .nav a {
   color: var(--navy); font-weight: 500; font-size: .97rem; padding: .5rem .7rem;
