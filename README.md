@@ -5,6 +5,8 @@ A modern, **fully offline-capable** demo website for Parkway Auto Spa
 get paid that the existing site doesn't have — including pay-by-phone and a
 scannable QR code that work even when the shop's own internet is down.
 
+**Live demo:** https://parkway.demoapppro.com
+
 ## View it
 
 Just **double-click `index.html`** — it opens in any browser, no install, no
