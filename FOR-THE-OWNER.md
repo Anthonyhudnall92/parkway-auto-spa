@@ -63,6 +63,13 @@ receipts whenever you're ready.
 
 ---
 
+## A note on the photos and logo
+
+The photos are royalty-free stock images (free for commercial use) used as
+placeholders — swapping in real photos of your shop, team, and finished cars
+would make it even stronger. The logo is your current web logo; a
+higher-resolution or vector version would look sharper on large screens.
+
 ## The bottom line
 
 A dropped internet connection should never cost you a sale again. This gives
